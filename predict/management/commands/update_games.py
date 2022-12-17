@@ -10,14 +10,14 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-
+        # get season
         try:
             sc = get_schedule(datetime.now().year+1)
             se = datetime.now().year+1
         except:
             sc = get_schedule(datetime.now().year)
             se = datetime.now().year
-
+# update new scores
         for index, row in sc.iterrows():
             if Game.objects.filter(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR']).exists():
                 a = Game.objects.get(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR'])
@@ -27,11 +27,13 @@ class Command(BaseCommand):
                     a.save() 
                 else:
                     pass   
+            # add new games
             else:
                 home = Team.objects.get(name=row['HOME'])
                 away = Team.objects.get(name=row['VISITOR'])
                 a= Game(date=row['DATE'], home_team=home, away_team=away, home_score =  None, away_score = None, season = se)
                 a.save()
+
         t = Team.objects.all()
         for team in t:
             team.rating=1500
