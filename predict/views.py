@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from nbamit import schedule_scraper
 from nbamit.forms import NewUserForm
 from .models import Team, Game, Rtg_history
@@ -59,4 +59,9 @@ def login_request(request):
 		else:
 			messages.error(request,"Invalid username or password.")
 	form = AuthenticationForm()
-	return render(request=request, template_name="registration/login.html", context={"login_form":form})
+	return render(request=request, template_name="registration\login.html", context={"login_form":form})
+
+def logout_request(request):
+	logout(request)
+	messages.info(request, "You have successfully logged out.") 
+	return redirect("index")
