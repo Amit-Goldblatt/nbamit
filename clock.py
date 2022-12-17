@@ -4,7 +4,7 @@ from nbamit.schedule_scraper import get_schedule
 from datetime import datetime
 sched = BlockingScheduler()
 
-@sched.scheduled_job('cron', hour=12)
+@sched.scheduled_job('cron', hour=14, minute=58)
 def update_season():
 
     try:
@@ -15,8 +15,8 @@ def update_season():
         se = datetime.now().year
 
     for index, row in sc.iterrows():
-        a = Game.objects.filter(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR'])
-        if a.exists():
+        if Game.objects.filter(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR']).exists():
+            a = Game.objects.get(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR'])
             if a.home_score == None:
                 a.home_score = row['HOME_PTS']
                 a.away_score = row['VISITOR_PTS']
