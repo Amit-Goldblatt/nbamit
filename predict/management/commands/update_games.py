@@ -31,4 +31,4 @@ def update_season():
 
 
 
-    sched.start()
+    
