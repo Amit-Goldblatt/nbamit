@@ -17,20 +17,7 @@ def index(request):
     games = Game.objects.all().order_by('date').filter(date__range=[startdate, enddate])
     return render(request, 'index.html', {'teams': teams, 'games': games, 'username': request.user.username})
 
-# def login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             # Redirect to a success page.
-#             redirect('index', username)
-#         else:
-#             # Return an 'invalid login' error message. 
-#             return render(request, 'login.html', {'error': 'Invalid username or password'}) 
-#     else:
-#         return render(request, 'registration\login.html')
+
 def register_request(request):
 	if request.method == "POST":
 		form = NewUserForm(request.POST)
@@ -59,7 +46,7 @@ def login_request(request):
 		else:
 			messages.error(request,"Invalid username or password.")
 	form = AuthenticationForm()
-	return render(request=request, template_name="registration\login.html", context={"login_form":form})
+	return render(request=request, template_name="registration/login.html", context={"login_form":form})
 
 def logout_request(request):
 	logout(request)
