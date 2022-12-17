@@ -26,9 +26,14 @@ def update_season():
             away = Team.objects.get(name=row['VISITOR'])
             a= Game(date=row['DATE'], home_team=home, away_team=away, home_score =  None, away_score = None, season = se)
             a.save()
-       
-
-
-
-
-    
+    t = Team.objects.all()
+    for team in t:
+        team.rating=1500
+        team.rd=350
+        team.vol=0.06
+    h= Rtg_history.objects.all()
+    for hist in h:
+        hist.delete()
+    g = Game.objects.all()
+    for game in g:
+        game.calc()
