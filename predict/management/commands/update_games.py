@@ -1,10 +1,8 @@
-from apscheduler.schedulers.blocking import BlockingScheduler
 from predict.models import Game, Team, Rtg_history
 from nbamit.schedule_scraper import get_schedule
 from datetime import datetime
-sched = BlockingScheduler()
 
-@sched.scheduled_job('cron', hour=14, minute=58)
+
 def update_season():
 
     try:
