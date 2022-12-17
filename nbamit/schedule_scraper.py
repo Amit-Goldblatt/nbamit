@@ -65,7 +65,7 @@ def get_schedule(season, playoffs=False):
     return df
 
 if __name__ == '__main__':
-    sc = get_schedule(2023)
+    sc = get_schedule(2020)
     with pd.option_context('display.max_rows', None, 'display.max_columns', None): 
         print(sc)
     # # print all games with no score
