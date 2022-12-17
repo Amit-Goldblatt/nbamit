@@ -1,3 +1,4 @@
 # NBA Glicko2 website
 
-A barebones Django app, which can easily be deployed to Heroku.
+to run the app localy :
+python manage.py runserver --settings=nbamit.settings_local
