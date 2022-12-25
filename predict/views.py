@@ -6,17 +6,31 @@ from nbamit.forms import NewUserForm
 from .models import Team, Game, Rtg_history
 from datetime import date, timedelta
 from django.contrib.auth.forms import AuthenticationForm
-
+import plotly.graph_objects as go
+import pandas as pd
+from plotly.subplots import make_subplots
 
 startdate = date.today()
 enddate = startdate + timedelta(days=6)
 # Create your views here.
 def index(request):
-    
-    teams = Team.objects.all().order_by('-rating')
-    games = Game.objects.all().order_by('date').filter(date__range=[startdate, enddate])
-    return render(request, 'index.html', {'teams': teams, 'games': games, 'username': request.user.username})
-
+	history = Rtg_history.objects.all().order_by('date')
+	teams = Team.objects.all().order_by('-rating')
+	games = Game.objects.all().order_by('date').filter(
+	date__range=[startdate, enddate])
+	# covert to dataframe
+	# df = pd.DataFrame.from_records(history.values())
+	# print(df)
+	# create figure
+	fig = make_subplots()
+	for team in teams:
+		team_history = history.filter(team=team, date__range=['2022-10-18', date.today()])
+		df = pd.DataFrame.from_records(team_history.values())
+		fig.add_trace(go.Scatter(x=df['date'], y=df['rtg'], name=team.name))
+		fig.update_layout(xaxis_title='Date', yaxis_title='Rating')
+	
+	
+	return render(request, 'index.html', {'teams': teams, 'games': games, 'username': request.user.username, 'fig': fig.to_html(full_html=False, default_height=1000, default_width="100%", include_plotlyjs='cdn')})
 
 def register_request(request):
 	if request.method == "POST":

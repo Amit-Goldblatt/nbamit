@@ -11,10 +11,11 @@
         <p>The Glicko rating system and Glicko-2 rating system are methods of assessing a player's strength in games of skill, such as chess and Go. The Glicko rating system was invented by Mark Glickman in 1995 as an improvement on the Elo rating system, and initially intended for the primary use as a chess rating system. Glickman's principal contribution to measurement is "ratings reliability", called RD, for ratings deviation.</p>
         <br>
         <p>this site applies the Glicko-2 rating system to the NBA.</p>
-        <p>rating is a measure of a team's strength, higher = better.</p>
-        <p>RD is a measure of the uncertainty of a team's rating.</p>
-        <p>volatility is a measure of the uncertainty of a team's RD.</p>
-    
+        <p>rating is a measure of a team's strength, higher = stronger.</p>
+        <p>RD is a measure of the uncertainty of a team's rating, higher = more uncertainty.</p>
+        <p>volatility is a measure of the uncertainty of a team's RD, higher = more uncertainty.</p>
+        <p>the site updates once a day at 12 UTC.</p>
+        <p>to find out more about the Glicko-2 rating system visit <a href="https://www.glicko.net/glicko/glicko2.pdf">this</a> link.</p>
     </div>
     <hr>
     <div class = "text-center" id = "rating">
@@ -85,8 +86,21 @@
             </tbody>
         </table>
     </div>
-      
+    <hr>
+    <div align="center" id = "history">
+        <h2 class="section-heading text-uppercase">NBA rating history</h2>
+        <p>the graph below shows the rating of each team in the NBA over time for the 2022-3 season.</p>
+        <p>the graph is interactive, you can zoom in and out and select what teams to show by double clicing their name.</p>
+        <br>
+        
+        {% if fig %}
     
+    
+    
+        {{ fig|safe }}
+    
+{% endif %}
+</div>    
     {% endblock %}
 
 
