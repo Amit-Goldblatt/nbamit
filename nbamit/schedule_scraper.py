@@ -6,7 +6,7 @@ import pandas as pd
 from datetime import datetime
 from requests import get
 from bs4 import BeautifulSoup
-
+# this function is used to get the schedule for a given season from basketball-reference.com
 def get_schedule(season, playoffs=False):
     months = ['October', 'November', 'December', 'January', 'February', 'March',
             'April', 'May', 'June']
@@ -65,8 +65,8 @@ def get_schedule(season, playoffs=False):
     return df
 
 if __name__ == '__main__':
+    # this is a test to check if the scraper works
     sc = get_schedule(2020)
     with pd.option_context('display.max_rows', None, 'display.max_columns', None): 
         print(sc)
-    # # print all games with no score
-    # print(sc[sc['HOME_PTS'].isna(
+  

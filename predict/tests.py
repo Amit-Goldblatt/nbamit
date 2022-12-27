@@ -1,6 +1,6 @@
 from django.test import TestCase
 from .models import Team, Game, Rtg_history
-# Create your tests here.
+# testing Team model
 class TeamTestCase(TestCase):
     def setUp(self):
         Team.objects.create(name='amit', confrence='east', rating=1500, rd=350, vol=0.06)
@@ -18,12 +18,14 @@ class TeamTestCase(TestCase):
         self.assertEqual(amit2.vol, 0.06)
         self.assertEqual(amit.confrence, 'east')
         self.assertEqual(amit2.confrence, 'east')
+# testing Game model
 class GameTestCase(TestCase):
     def setUp(self):
         amit = Team.objects.create(name='amit', confrence='east', rating=3000, rd=350, vol=0.06)
         amit2 = Team.objects.create(name='amit2', confrence='east', rating=2000, rd=30, vol=0.06)
         Game.objects.create(date='2020-01-01', home_team=amit, away_team=amit2, home_score=100, away_score=90)
         Game.objects.create(date='2020-01-02', home_team=amit, away_team=amit2, home_score=None, away_score=None)
+    # 
     def test_game(self):
         amit = Team.objects.get(name='amit')
         amit2 = Team.objects.get(name='amit2')
@@ -38,6 +40,7 @@ class GameTestCase(TestCase):
         self.assertEqual(game1.winner, amit)
         self.assertEqual(game1.predicted_winner, None)
         counter =0
+        # test that the ratigs effect the predicted winner
         for i in range(50):
             game2.calc()
             if game2.predicted_winner == amit:
