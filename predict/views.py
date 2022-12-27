@@ -26,7 +26,7 @@ def index(request):
 	for team in teams:
 		team_history = history.filter(team=team, date__range=['2022-10-18', date.today()])
 		df = pd.DataFrame.from_records(team_history.values())
-		fig.add_trace(go.Scatter(x=df['date'], y=df['rtg'], name=team.name))
+		fig.add_trace(go.Scatter(x=df['date'], y=df['rtg'], name=team.name, visible='legendonly' ))
 		fig.update_layout(xaxis_title='Date', yaxis_title='Rating')
 	
 	
