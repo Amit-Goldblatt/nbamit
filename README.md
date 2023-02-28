@@ -2,6 +2,14 @@
 <p>a website for predicting nba games.</p>
 <p>automticly scrapes game results from the web and uses glicko-2 rating system to asses team winning chanses. </p>
 <p>the website is hosted at <a href="http://nbamit.herokuapp.com/">http://nbamit.herokuapp.com/</a>.</p>
+<h2>Dependencies</h2>
+<ul>
+<li>django</li>
+<li>beautifulsoup</li>
+<li>numpy</li>
+<li>pandas</li>
+<li>plotly</li>
+</ul>
 <h2>runing the website localy</h2>
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirements:
