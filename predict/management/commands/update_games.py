@@ -20,33 +20,38 @@ class Command(BaseCommand):
         except:
             sc = get_schedule(datetime.now().year)
             se = datetime.now().year
-        
 
-        for index, row in sc.iterrows():
-        #  check if game is already in database  
-            if Game.objects.filter(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR']).exists():
-                # fetch game from database
-                a = Game.objects.get(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR'])
+        # remove all games from the schedule
+        Game.objects.all().delete()
+        for index, row in sc.iterrows():          
+            home = Team.objects.get(name=row['HOME'])
+            away = Team.objects.get(name=row['VISITOR'])
+            a= Game(date=row['DATE'], home_team=home, away_team=away, home_score =  None, away_score = None, season = se)
+            a.save()
+        # #  check if game is already in database  
+        #     if Game.objects.filter(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR']).exists():
+        #         # fetch game from database
+        #         a = Game.objects.get(date=row['DATE'], home_team__name=row['HOME'], away_team__name=row['VISITOR'])
                 
-                # if game dosen't have a score yet, skips it.
-                if pd.isnull(row['VISITOR_PTS']):
-                    continue
-                # if game has a score, update it.
-                else:
-                    print(row['HOME_PTS'], 1)
-                    a.home_score = row['HOME_PTS']
-                    print("q")
-                    a.away_score = row['VISITOR_PTS']
-                    print("update worked")
-                    a.save()  
-                    print("e")  
-            # add new games
-            else:
+        #         # if game dosen't have a score yet, skips it.
+        #         if pd.isnull(row['VISITOR_PTS']):
+        #             continue
+        #         # if game has a score, update it.
+        #         else:
+        #             print(row['HOME_PTS'], 1)
+        #             a.home_score = row['HOME_PTS']
+        #             print("q")
+        #             a.away_score = row['VISITOR_PTS']
+        #             print("update worked")
+        #             a.save()  
+        #             print("e")  
+        #     # add new games
+        #     else:
                 
-                home = Team.objects.get(name=row['HOME'])
-                away = Team.objects.get(name=row['VISITOR'])
-                a= Game(date=row['DATE'], home_team=home, away_team=away, home_score =  None, away_score = None, season = se)
-                a.save()
+        #         home = Team.objects.get(name=row['HOME'])
+        #         away = Team.objects.get(name=row['VISITOR'])
+        #         a= Game(date=row['DATE'], home_team=home, away_team=away, home_score =  None, away_score = None, season = se)
+        #         a.save()
                 
         # update ratings 
         t = Team.objects.all()

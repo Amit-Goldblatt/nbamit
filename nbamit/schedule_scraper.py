@@ -66,7 +66,7 @@ def get_schedule(season, playoffs=False):
 
 if __name__ == '__main__':
     # this is a test to check if the scraper works
-    sc = get_schedule(2020)
+    sc = get_schedule(2023)
     with pd.option_context('display.max_rows', None, 'display.max_columns', None): 
-        print(sc)
+        print(sc.tail(10))
   
