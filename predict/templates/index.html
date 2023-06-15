@@ -58,6 +58,10 @@
     <hr>
     <div class = "text-center" id = "odds">
         <h2 class="section-heading text-uppercase">NBA game odds</h2>
+        {%if game.date == None%}
+        <p>the NBA schedule was not announced yet :(</p>
+        <p>please come back later for future game odds</p>
+        {%else%}
         <p>the table below shows the the odds of wining of each game by glicko-2.</p>
         <br>
     
@@ -65,6 +69,7 @@
      
         
         <table class="table table-striped table-hover">
+            
             <thead>
                 <tr>
                     <th scope="col">date</th>
@@ -85,6 +90,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        {%endif%}
     </div>
     <hr>
     <div align="center" id = "history">
